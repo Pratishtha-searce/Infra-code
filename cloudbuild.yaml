@@ -14,7 +14,7 @@
 #                 └── gke
 
 steps:
-  - name: 'odiso/gcloud-terraform:latest'
+  - name: 'gcr.io/searce-playground-v1/gcloud-terraform:latest'
     args:
       - '-c'
       - |
