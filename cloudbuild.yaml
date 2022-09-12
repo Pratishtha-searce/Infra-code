@@ -14,7 +14,7 @@
 #                 └── gke
 
 steps:
-  - name: 'alpine:latest'
+  - name: 'ubuntu:latest'
     args:
       - '-c'
       - |
