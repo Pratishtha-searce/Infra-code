@@ -1,3 +1,1 @@
-# Infra-code
-Repository for terraform scripts
-![Alt text](image/details.png "Directory Structure")
+![Alt text](details.png "Directory Structure")
