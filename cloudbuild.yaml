@@ -14,7 +14,7 @@
 #                 └── gke
 
 steps:
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: 'hashicorp/terraform:1.0.4'
     entrypoint: 'bash'
     args:
       - '-eEuo'
