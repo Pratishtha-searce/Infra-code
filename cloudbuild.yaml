@@ -14,7 +14,7 @@
 #                 └── gke
 
 steps:
-  - name: 'ubuntu:latest'
+  - name: 'bash:4.4'
     args:
       - '-c'
       - |
