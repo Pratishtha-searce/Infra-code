@@ -21,7 +21,7 @@ steps:
       - 'pipefail'
       - '-c'
       - |
-        make all-Resources
+        make all-Resource
     id: Create all the terraform resources
 
 logsBucket: 'gs://souvik-jenkins-bucket'
