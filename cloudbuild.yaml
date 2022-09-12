@@ -21,7 +21,7 @@ steps:
         make all-Resources
     id: Create all the terraform resources
 
-logsBucket: 'gs://'
+logsBucket: 'gs://souvik-jenkins-bucket'
 options:
   logging: GCS_ONLY
 timeout: 86400s
