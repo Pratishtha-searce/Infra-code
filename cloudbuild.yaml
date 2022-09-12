@@ -14,7 +14,7 @@
 #                 └── gke
 
 steps:
-  - name: 'hashicorp/terraform:1.0.4'
+  - name: 'odiso/gcloud-terraform:latest'
     args:
       - '-c'
       - |
