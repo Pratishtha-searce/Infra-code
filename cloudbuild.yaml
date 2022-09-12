@@ -14,7 +14,7 @@
 #                 └── gke
 
 steps:
-  - name: 'ubuntu'
+  - name: 'gcr.io/cloud-builders/docker'
     args:
       - '-c'
       - |
