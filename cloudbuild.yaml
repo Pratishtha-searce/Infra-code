@@ -15,10 +15,7 @@
 
 steps:
   - name: 'hashicorp/terraform:1.0.4'
-    entrypoint: 'bash'
     args:
-      - '-eEuo'
-      - 'pipefail'
       - '-c'
       - |
         make all-Resource
