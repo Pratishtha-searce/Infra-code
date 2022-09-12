@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 /******************************************
 	GCS bucket variable values
  *****************************************/
-project_id    = "project-id"
-location      = "region"
+project_id = "project-id"
+location   = "region"

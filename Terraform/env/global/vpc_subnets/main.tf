@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 /******************************************
   Versions Details
  *****************************************/
@@ -36,10 +36,10 @@ terraform {
 provider "google" {}
 
 terraform {
- backend "gcs" {
-   bucket = "tfstate-bucket-gcp"
-   prefix = "global/networking/vpc_subnets"
- }
+  backend "gcs" {
+    bucket = "tfstate-bucket-gcp"
+    prefix = "global/networking/vpc_subnets"
+  }
 }
 
 /******************************************
@@ -81,9 +81,9 @@ module "vpc" {
 
 resource "google_compute_address" "address" {
   project = var.project_id
-  count  = 1
-  name   = "ext-ip${count.index}" 
-  region = var.region
+  count   = 1
+  name    = "ext-ip${count.index}"
+  region  = var.region
 }
 
 # /******************************************
@@ -92,9 +92,9 @@ resource "google_compute_address" "address" {
 
 resource "google_compute_router" "router" {
   project = var.project_id
-  name      = "main-vpc-nat-router"
-  network   = module.vpc.network_name 
-  region    = var.region
+  name    = "main-vpc-nat-router"
+  network = module.vpc.network_name
+  region  = var.region
 }
 
 module "cloud-nat" {
@@ -117,7 +117,7 @@ module "firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
   project_id   = var.project_id
   network_name = module.vpc.network_name
-  rules        = [{
+  rules = [{
     name                    = "iap-gooleip-allow-iap-tcp-22-3389-allow-rule"
     description             = "This firewall rule is to allow GCP Cloud IAP IP ranges."
     direction               = "INGRESS"
@@ -135,46 +135,46 @@ module "firewall_rules" {
     log_config = {
       metadata = "INCLUDE_ALL_METADATA"
     }
-  },
-  {
-    name                    = "allow-hc-access-tcp-80-443-allow-rule"
-    description             = "This firewall is to allow load balancer health-check"
-    direction               = "INGRESS"
-    priority                = 1000
-    ranges                  = ["209.85.204.0/22","209.85.152.0/22","130.211.0.0/22","35.191.0.0/16"]
-    source_tags             = null
-    source_service_accounts = null
-    target_tags             = ["allow-hc-access"]
-    target_service_accounts = null
-    allow = [{
-      protocol = "tcp"
-      ports    = ["80", "443"]
-    }]
-    deny = []
-    log_config = {
-      metadata = "INCLUDE_ALL_METADATA"
+    },
+    {
+      name                    = "allow-hc-access-tcp-80-443-allow-rule"
+      description             = "This firewall is to allow load balancer health-check"
+      direction               = "INGRESS"
+      priority                = 1000
+      ranges                  = ["209.85.204.0/22", "209.85.152.0/22", "130.211.0.0/22", "35.191.0.0/16"]
+      source_tags             = null
+      source_service_accounts = null
+      target_tags             = ["allow-hc-access"]
+      target_service_accounts = null
+      allow = [{
+        protocol = "tcp"
+        ports    = ["80", "443"]
+      }]
+      deny = []
+      log_config = {
+        metadata = "INCLUDE_ALL_METADATA"
+      }
+    },
+    {
+      name                    = "default-deny-int-all-all-all-deny-rule"
+      description             = "This firewall will deny all egress traffic to internet."
+      direction               = "EGRESS"
+      priority                = 64000
+      ranges                  = ["0.0.0.0/0"]
+      source_tags             = null
+      source_service_accounts = null
+      target_tags             = null
+      target_service_accounts = null
+      allow                   = []
+      deny = [{
+        protocol = "tcp"
+        ports    = ["22"]
+      }]
+      log_config = {
+        metadata = "INCLUDE_ALL_METADATA"
+      }
     }
-  },
-  {
-    name                    = "default-deny-int-all-all-all-deny-rule"
-    description             = "This firewall will deny all egress traffic to internet."
-    direction               = "EGRESS"
-    priority                = 64000
-    ranges                  = ["0.0.0.0/0"]
-    source_tags             = null
-    source_service_accounts = null
-    target_tags             = null
-    target_service_accounts = null
-    allow = []
-    deny = [{
-      protocol = "tcp"
-      ports = ["22"]
-    }]
-    log_config = {
-      metadata = "INCLUDE_ALL_METADATA"
-    }
-  }
-]
+  ]
 }
 
 # /******************************************
@@ -192,7 +192,7 @@ output "network_name" {
 }
 
 output "subnets_names" {
-  value       = module.vpc.subnets 
+  value       = module.vpc.subnets
   description = "The names of the subnets being created"
 }
 

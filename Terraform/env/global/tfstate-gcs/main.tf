@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 /******************************************
 	GCS bucket module
  *****************************************/
@@ -44,13 +44,13 @@ module "tfstate_bucket" {
   source  = "terraform-google-modules/cloud-storage/google//modules/simple_bucket"
   version = "~> 1.3"
 
-  name              = "tfstate-bucket-gcp"
-  project_id        = var.project_id
-  location          = var.location
-  storage_class     = "STANDARD"
-  versioning        = true
+  name          = "tfstate-bucket-gcp"
+  project_id    = var.project_id
+  location      = var.location
+  storage_class = "STANDARD"
+  versioning    = true
   labels = {
-    "purpose" = "terraform",
+    "purpose"   = "terraform",
     "createdby" = "terraform"
   }
 }
