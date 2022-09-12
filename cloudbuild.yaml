@@ -1,0 +1,133 @@
+steps:
+
+  # Steps to Create the tf-state bucket
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init for tfstate bucket
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform fmt
+    id: terraform fmt for tfstate bucket
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform validate
+    id: terraform validate for tfstate bucket
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform plan
+    id: terraform plan for tfstate bucket
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/tfstate-gcs
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply for tfstate bucket
+    entrypoint: sh
+    
+    # Steps to Create the VPC and Subnet
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc_subnets
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init for vpc-subnet
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc
+    args:
+      - '-c'
+      - |
+        terraform fmt
+    id: terraform fmt for vpc-subnet
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc_subnets
+    args:
+      - '-c'
+      - |
+        terraform validate
+    id: terraform validate for vpc-subnet
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc_subnets
+    args:
+      - '-c'
+      - |
+        terraform plan
+    id: terraform plan for vpc-subnet
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/global/vpc_subnets
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply for vpc-subnet
+    entrypoint: sh
+
+   # Steps to Create the GKE cluster
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform init
+    id: terraform init for gke cluster
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform fmt
+    id: terraform fmt for gke cluster
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform validate
+    id: terraform validate for gke cluster
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform plan
+    id: terraform plan for gke cluster
+    entrypoint: sh
+  - name: 'hashicorp/terraform:1.0.4'
+    dir: Terraform/env/region/asia-south1/gke
+    args:
+      - '-c'
+      - |
+        terraform apply -input=false -auto-approve
+    id: terraform apply for gke cluster
+    entrypoint: sh
+
+
+logsBucket: 'gs://<change it with log-bucket-name>'
+options:
+  logging: GCS_ONLY
+timeout: 86400s
