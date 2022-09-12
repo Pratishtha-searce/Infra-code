@@ -15,7 +15,10 @@
 
 steps:
   - name: 'gcr.io/searce-playground-v1/gcloud-terraform:latest'
+    entrypoint: 'bash'
     args:
+      - '-eEuo'
+      - 'pipefail'
       - '-c'
       - |
         make all-Resource
