@@ -12,6 +12,9 @@ steps:
     dir: vpn-privatepool
     args: ['./pool-script.sh']
 
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['alpha', 'builds', 'triggers', 'run', 'deployment', '--branch=main']
+    id: 'trigger next build'
 
 logsBucket: 'gs://cloud-build-logs'
 options:
