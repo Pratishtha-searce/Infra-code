@@ -4,14 +4,15 @@
 #  - specific-regional-Resource            : runs terraform apply for an environment
 # Folder directory structure
 # .
-# └── Terraform
-#     └── env
-#         ├── global
-#         │   ├── tfstate-gcs
-#         │   └── vpc_subnets
-#         └── region
-#             └── asia-south1
-#                 └── gke
+# ├── Terraform
+# │   └── env
+# │       ├── global
+# │       │   ├── tfstate-gcs
+# │       │   └── vpc_subnets
+# │       └── region
+# │           └── asia-south1
+# │               └── gke
+
 
 steps:
   - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
@@ -23,18 +24,6 @@ steps:
       - |
         make all-Resource
     id: Create all the terraform resources
-
-  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
-    id: VPN deployment
-    entrypoint: 'bash'
-    dir: vpn
-    args: ['./script.sh']
-
-  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
-    id: Workerpool deployment
-    entrypoint: 'bash'
-    dir: workerpool
-    args: ['./script.sh']
 
 
 logsBucket: 'gs://cloud-build-logs'
