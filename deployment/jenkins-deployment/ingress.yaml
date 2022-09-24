@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jenkins-ingress
+  namespace: jenkins
+  labels:
+    app: jenkins
+  annotations:
+    networking.gke.io/managed-certificates: jenkins-test-cert
+    kubernetes.io/ingress.global-static-ip-name: accelerator-jenkins
+    kubernetes.io/ingress.class: "gce"
+spec:
+  rules:
+  - host: jenkins-accelerator.XYZ.com    #give the domain name according to your requiremnt
+    http:
+      paths:
+        - path: /*
+          pathType: ImplementationSpecific
+          backend:
+            service:
+              name: jenkins-svc
+              port:
+                number: 8080

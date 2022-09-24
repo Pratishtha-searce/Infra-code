@@ -1,0 +1,9 @@
+<com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl plugin="credentials@1139.veb_9579fca_33b_">
+  <scope>GLOBAL</scope>
+  <id>github-creds</id>
+  <description></description>
+  <username>${_USERNAME_}</username>
+  <password>${_TOKEN_}</password>
+  <usernameSecret>false</usernameSecret>
+  <passwordSecret>false</passwordSecret>
+</com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl>

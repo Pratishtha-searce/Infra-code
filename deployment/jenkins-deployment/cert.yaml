@@ -1,0 +1,10 @@
+apiVersion: networking.gke.io/v1
+kind: ManagedCertificate
+metadata:
+  name: jenkins-test-cert
+  namespace: jenkins
+  labels:
+    app: jenkins
+spec:
+  domains:
+    - jenkins-accelerator.XYZ.com   #give the domain name according to your requiremnt

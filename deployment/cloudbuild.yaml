@@ -1,0 +1,24 @@
+steps:
+  - name: 'google/cloud-sdk'
+    id: jenkins deployment
+    dir: deployment/jenkins-deployment
+    entrypoint: 'bash'
+    args: ['./build.sh']
+
+  - name: 'google/cloud-sdk'
+    id: nginx deployment
+    dir: deployment/nginx-deployment
+    entrypoint: 'bash'
+    args: ['./build.sh']
+
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['alpha', 'builds', 'triggers', 'run', 'setup', '--branch=main']
+    id: 'trigger next build'
+
+
+logsBucket: 'gs://cloud-build-logs'
+options:
+  logging: GCS_ONLY
+  workerPool:
+    'projects/GSA_PROJECT/locations/us-east1/workerPools/private-pool-'
+timeout: 86400s

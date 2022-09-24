@@ -1,0 +1,101 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: jenkins
+  namespace: jenkins
+  labels:
+    app: jenkins
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jenkins-master-role
+  namespace: jenkins
+  labels:
+    app: jenkins
+rules:
+- apiGroups: [""]
+  resources: ["pods", "pods/exec", "pods/log", "persistentvolumeclaims"]
+  verbs: ["*"]
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: jenkins-rolebinding
+  namespace: jenkins
+  labels:
+    app: jenkins
+subjects:
+- kind: ServiceAccount
+  name: jenkins
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: jenkins-master-role
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jenkinsnew-deployment
+  namespace: jenkins
+spec:
+  selector:
+    matchLabels:
+      app: jenkins
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: jenkins
+    spec:
+      volumes:
+        - name: pvc-jenkins #Creating Volume
+          persistentVolumeClaim:
+            claimName: jenkins-pvc #pvc we created earlier
+        - name: docker-socket-volume
+          hostPath:
+            path: /var/run/
+            type: Directory
+      containers:
+      - name: jenkins
+        image: gcr.io/searce-playground-v1/accelerator-jenkins:latest
+        readinessProbe:
+          httpGet:
+            path: /login
+            port: 8080
+          timeoutSeconds: 4
+          successThreshold: 3
+          failureThreshold: 2
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        securityContext:
+            privileged: true
+        volumeMounts:
+          - mountPath: /var/jenkins_home/
+            name: pvc-jenkins #Volume name that we defined above
+          - mountPath: /var/run/
+            name: docker-socket-volume
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000 #for slaves to connect to
+      serviceAccountName: jenkins
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jenkins-svc
+  namespace: jenkins
+  labels:
+    app: jenkins
+spec:
+  ports:
+  - name: jenkinsport
+    port: 8080
+    targetPort: 8080
+  - name: slaveconnectors
+    port: 50000
+  selector:
+    app: jenkins
+  type: NodePort #can be changed as per convinience

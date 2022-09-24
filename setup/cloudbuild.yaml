@@ -1,0 +1,18 @@
+steps:
+  - name: 'gcr.io/GSA_PROJECT/jenkins-setup-cloud-build'
+    id: build image using docker
+    entrypoint: 'bash'
+    dir: setup
+    args: ['./build.sh']
+    env:
+    - '_GITHUBURL_=${_GITHUBURL_}'
+    - '_JENKINSURL_=${_JENKINSURL_}'
+    - '_TOKEN_=${_TOKEN_}'
+    - '_USERNAME_=${_USERNAME_}'
+
+logsBucket: 'gs://cloud-build-logs'
+options:
+  logging: GCS_ONLY
+  workerPool:
+    'projects/GSA_PROJECT/locations/us-east1/workerPools/private-pool'
+timeout: 86400s
