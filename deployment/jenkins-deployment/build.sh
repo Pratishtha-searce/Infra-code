@@ -16,4 +16,4 @@ gcloud iam service-accounts add-iam-policy-binding workload-identity-test@searce
     --role roles/iam.workloadIdentityUser \
     --member "serviceAccount:searce-playground-v1.svc.id.goog[jenkins/jenkins]"
 
-kubectl annotate serviceaccount jenkins --namespace jenkins iam.gke.io/gcp-service-account=workload-identity-test@searce-playground-v1.iam.gserviceaccount.com
+# kubectl annotate serviceaccount jenkins --namespace jenkins iam.gke.io/gcp-service-account=workload-identity-test@searce-playground-v1.iam.gserviceaccount.com
