@@ -1,6 +1,8 @@
-export IP="$(gcloud compute addresses create accelerator-jenkins \
+gcloud compute addresses create accelerator-jenkins \
     --global \
-    --ip-version IPV4)"
+    --ip-version IPV4
+
+IP=`gcloud compute addresses describe accelerator-jenkins --global | grep address:| awk '{print $2}'`
 
 gcloud dns record-sets transaction start --zone=searceinc-net
 
