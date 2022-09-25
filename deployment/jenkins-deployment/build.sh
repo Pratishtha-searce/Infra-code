@@ -1,6 +1,6 @@
 gcloud compute addresses create accelerator-jenkins \
     --global \
-    --ip-version [IPV4, IPV6]
+    --ip-version [IPV4 | IPV6]
 
 gcloud container clusters get-credentials accelerator-cluster --zone us-east1-b --project searce-playground-v1
 
