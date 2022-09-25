@@ -4,7 +4,7 @@ export IP="$(gcloud compute addresses create accelerator-jenkins \
 
 gcloud dns record-sets transaction start --zone=searceinc-net
 
-gcloud dns record-sets transaction add  $IP   --name= jenkins-accelerator.searceinc.net  --ttl=300    --type=A    --zone=searceinc-net
+gcloud dns record-sets transaction add  $IP   --name=jenkins-accelerator.searceinc.net  --ttl=300    --type=A    --zone=searceinc-net
 
 gcloud dns record-sets transaction execute --zone=searceinc-net
 
