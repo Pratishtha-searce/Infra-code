@@ -4,7 +4,7 @@ envsubst < creds.xml > custom-creds.xml
 
 envsubst < review-job.xml > custom-review-job.xml
 
-gcloud container clusters get-credentials accelerator-cluster --zone us-east1-b --project GSA_PROJECT
+gcloud container clusters get-credentials accelerator-cluster --zone us-east1-b --project searce-playground-v1
 
 export POD_NAME="$(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n jenkins | grep jenkins)"
 

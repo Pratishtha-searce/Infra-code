@@ -11,7 +11,7 @@ metadata:
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-  - host: jenkins-accelerator.XYZ.com    #give the domain name according to your requiremnt
+  - host: jenkins-accelerator.searceinc.net    #give the domain name according to your requiremnt
     http:
       paths:
         - path: /*

@@ -20,7 +20,7 @@ gcloud compute networks peerings update servicenetworking-googleapis-com \
 
 gcloud builds worker-pools create private-pool \
    --region=us-east1 \
-   --peered-network=projects/souviks-world/global/networks/private-pool-accelerator-vpc
+   --peered-network=projects/searce-playground-v1/global/networks/private-pool-accelerator-vpc
 
 
 export GKE_PEERING_NAME=$(gcloud container clusters describe accelerator-cluster --zone us-east1-b  --format='value(privateClusterConfig.peeringName)')
@@ -36,4 +36,3 @@ gcloud compute routers update-bgp-peer vpn-private-pool-accelerator-vpc --peer-n
 gcloud compute routers update-bgp-peer 	vpn-gke-cluster-accelerator-vpc --peer-name=gke-cluster-accelerator-vpn-gateway --region=us-east1 --advertisement-mode=CUSTOM --set-advertisement-ranges=10.4.0.0/28
 
 gcloud container clusters update accelerator-cluster --enable-master-authorized-networks --zone us-east1-b --master-authorized-networks=$IP/24
-

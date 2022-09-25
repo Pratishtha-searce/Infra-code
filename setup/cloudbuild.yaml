@@ -1,5 +1,5 @@
 steps:
-  - name: 'gcr.io/GSA_PROJECT/jenkins-setup-cloud-build'
+  - name: 'gcr.io/searce-playground-v1/jenkins-setup-cloud-build'
     id: build image using docker
     entrypoint: 'bash'
     dir: setup
@@ -10,9 +10,9 @@ steps:
     - '_TOKEN_=${_TOKEN_}'
     - '_USERNAME_=${_USERNAME_}'
 
-logsBucket: 'gs://cloud-build-logs'
+logsBucket: 'gs://logs-cloudbuild'
 options:
   logging: GCS_ONLY
   workerPool:
-    'projects/GSA_PROJECT/locations/us-east1/workerPools/private-pool'
+    'projects/searce-playground-v1/locations/us-east1/workerPools/private-pool'
 timeout: 86400s

@@ -1,12 +1,11 @@
 steps:
-
-  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
+  - name: 'gcr.io/searce-playground-v1/gcloud-terraform:latest'
     id: VPN deployment
     entrypoint: 'bash'
     dir: vpn-privatepool
     args: ['./vpn-script.sh']
 
-  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
+  - name: 'gcr.io/searce-playground-v1/gcloud-terraform:latest'
     id: Workerpool deployment
     entrypoint: 'bash'
     dir: vpn-privatepool
@@ -16,7 +15,7 @@ steps:
     args: ['alpha', 'builds', 'triggers', 'run', 'deployment', '--branch=main']
     id: 'trigger next build'
 
-logsBucket: 'gs://cloud-build-logs'
+logsBucket: 'gs://logs-cloudbuild'
 options:
   logging: GCS_ONLY
 timeout: 86400s
