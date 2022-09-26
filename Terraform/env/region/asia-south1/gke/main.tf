@@ -93,7 +93,7 @@ module "gke_private_cluster" {
   node_pools = [
     {
       name                           = "gke-cluster-nodepool"
-      machine_type                   = "n2-standard-8"
+      machine_type                   = "e2-medium"
       image_type                     = "UBUNTU_CONTAINERD"
       node_locations                 = "asia-south1-a"
       min_count                      = 1
