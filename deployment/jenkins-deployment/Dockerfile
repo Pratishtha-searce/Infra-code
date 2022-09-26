@@ -1,8 +1,8 @@
-FROM ubuntu:18.04
+FROM jenkins/jenkins
 
 USER root
 
-RUN apt-get update && apt-get -y install wget vim curl gettext-base python3
+RUN apt-get update && apt-get -y install wget vim curl gettext-base python3 rsync git subversion zip unzip jq
 
 # Install kubectl
 RUN curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
@@ -17,5 +17,6 @@ RUN apt-get update && \
     apt-get update -y && \
     apt-get install google-cloud-sdk -y
 
-# Install JAVA
-RUN apt install default-jre -y
+# Install Docker
+
+RUN apt-get install docker.io -y

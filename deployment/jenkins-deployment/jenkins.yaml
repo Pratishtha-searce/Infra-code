@@ -58,7 +58,7 @@ spec:
             type: Directory
       containers:
       - name: jenkins
-        image: gcr.io/searce-playground-v1/accelerator-jenkins:latest #create this docker image using the dockerfile
+        image: gcr.io/PROJECT_ID/jenkins-gcr-image:latest #create this docker image using the dockerfile
         readinessProbe:
           httpGet:
             path: /login
