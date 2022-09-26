@@ -22,8 +22,8 @@ steps:
       - 'pipefail'
       - '-c'
       - |
-        make all-Resource
-    id: Create all the terraform resources
+        make specific-regional-Resource dir-name gke
+    id: Create the terraform resources
 
 
 logsBucket: 'gs://gcp-cloud-build-logs'
