@@ -13,7 +13,7 @@ specific-global-Resource:
 	cd Terraform/env/global/${dir_name}; \
     terraform init && terraform fmt && terraform validate && terraform plan && terraform apply --var-file=terraform.tfvars --auto-approve
 
-specific-regional-Resource: check
+specific-regional-Resource:
 	$(call check_defined, dir_name, Please set the ENV to apply. Values should be dev, test, uat or prod)
 	cd Terraform/env/region/asia-south1/${dir_name}; \
     terraform init && terraform fmt && terraform validate && terraform plan && terraform apply --var-file=terraform.tfvars --auto-approve
