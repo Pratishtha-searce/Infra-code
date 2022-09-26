@@ -95,7 +95,7 @@ module "gke_private_cluster" {
       name                           = "gke-cluster-nodepool"
       machine_type                   = "e2-medium"
       image_type                     = "UBUNTU_CONTAINERD"
-      node_locations                 = "us-east1"
+      node_locations                 = "us-east1-b"
       min_count                      = 1
       max_count                      = 2
       disk_size_gb                   = 100
