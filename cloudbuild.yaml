@@ -14,7 +14,7 @@
                                             #                 └── gke
 
 steps:
-  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
+  - name: 'gcr.io/PROJECT_ID/gcloud-terraform:latest' #create this docker image using the dockerfile
     id: Create the terraform resources
     entrypoint: 'bash'
     args:
