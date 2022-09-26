@@ -26,7 +26,7 @@ steps:
     id: Create all the terraform resources
 
 
-logsBucket: 'gs://cloud-build-logs'
+logsBucket: 'gs://gcp-cloud-build-logs'
 options:
   logging: GCS_ONLY
 timeout: 86400s

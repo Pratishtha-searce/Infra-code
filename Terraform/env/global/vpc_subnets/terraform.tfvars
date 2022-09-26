@@ -18,5 +18,5 @@
 	VPC subnets variable values
  *****************************************/
 
-project_id = "project-id"
-region     = "region"
+project_id = "souviks-world"
+region     = "us-east1"
