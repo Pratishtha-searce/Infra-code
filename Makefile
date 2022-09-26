@@ -14,9 +14,10 @@ specific-global-resource:
     terraform init && terraform fmt && terraform validate && terraform plan && terraform apply --var-file=terraform.tfvars --auto-approve
 
 specific-regional-resource:
-	$(call check_defined, dir_name, Please set the ENV to apply. Values should be dev, test, uat or prod)
+	$(call check_defined, dir_name, Please set the dir_name to apply. Values should be gke)
 	cd Terraform/env/region/asia-south1/${dir_name}; \
     terraform init && terraform fmt && terraform validate && terraform plan && terraform apply --var-file=terraform.tfvars --auto-approve
+
 
 # pass the make command like this - make all-resource
 # for specific  global and regional - make specific-global-resource/specific-regional-resource dir_name="name of the directory where terraform configuration files are present."

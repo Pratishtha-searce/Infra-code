@@ -18,5 +18,5 @@
 	GCS bucket variable values
  *****************************************/
 
-project_id = "souviks-world"
-location   = "us-east1"
+project_id = "projectid"
+location   = "region"

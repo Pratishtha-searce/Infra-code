@@ -20,5 +20,5 @@ logsBucket: 'gs://logs-cloudbuild'
 options:
   logging: GCS_ONLY
   workerPool:
-    'projects/PROJECT_ID/locations/us-east1/workerPools/private-pool'
+    'projects/PROJECT_ID/locations/REGION/workerPools/private-pool'
 timeout: 86400s

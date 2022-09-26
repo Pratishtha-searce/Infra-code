@@ -1,7 +1,7 @@
 #  The following commands are available :
 #  - all-resource                          : Make will create all the terraform resources.
-#  - specific-global-resource              : Make will create the specific global resources.
-#  - specific-regional-resource            : Make will reate the specific regional resources
+#  - specific-global-resource              : Make will create the specific global resources. eg. make specific-global-resource dir_name=vpc_subnets
+#  - specific-regional-resource            : Make will reate the specific regional resources. eg. make specific-regional-resource dir_name=gke
 #  - Folder directory structure            :
                                             # .
                                             # └── Terraform
@@ -22,9 +22,9 @@ steps:
       - 'pipefail'
       - '-c'
       - |
-        make specific-regional-resource dir_name=gke
+        make all-resource
 
-logsBucket: 'gs://gcp-cloud-build-logs'
+logsBucket: 'gs://logs-cloudbuild'
 options:
   logging: GCS_ONLY
 timeout: 86400s

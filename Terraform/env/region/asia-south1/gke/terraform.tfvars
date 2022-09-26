@@ -18,5 +18,5 @@
   GKE Details 
  *****************************************/
 
-project_id  = "souviks-world"
-region      = "us-east1"
+project_id  = "projectid"
+region      = "region"
