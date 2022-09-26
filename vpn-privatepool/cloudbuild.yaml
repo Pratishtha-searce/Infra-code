@@ -1,11 +1,11 @@
 steps:
-  - name: 'gcr.io/searce-playground-v1/gcloud-terraform:latest'
+  - name: 'gcr.io/PROJECT_ID/gcloud-terraform:latest'   #this is the same docker image we have used in terraform execution
     id: VPN deployment
     entrypoint: 'bash'
     dir: vpn-privatepool
     args: ['./vpn-script.sh']
 
-  - name: 'gcr.io/searce-playground-v1/gcloud-terraform:latest'
+  - name: 'gcr.io/PROJECT_ID/gcloud-terraform:latest'  #this is the same docker image we have used in terraform execution
     id: Workerpool deployment
     entrypoint: 'bash'
     dir: vpn-privatepool

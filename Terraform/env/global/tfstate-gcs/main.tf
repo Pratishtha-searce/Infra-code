@@ -37,7 +37,7 @@ terraform {
 provider "google" {}
 
 /******************************************
-  Module for Bucket
+  Module for TF State Bucket
  *****************************************/
 
 module "tfstate_bucket" {
@@ -54,7 +54,6 @@ module "tfstate_bucket" {
     "createdby" = "terraform"
   }
 }
-
 
 # /******************************************
 #   Outputs of Bucket

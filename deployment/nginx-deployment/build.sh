@@ -1,14 +1,14 @@
-gcloud container clusters get-credentials accelerator-cluster --zone us-east1-b --project searce-playground-v1
+gcloud container clusters get-credentials gke-cluster --zone us-east1-b --project PROJECT_ID
 
 kubectl apply -f nginx-ingress.yaml
 
 export IP="$(kubectl get svc ingress-nginx-controller -n ingress-nginx -o jsonpath="{.status.loadBalancer.ingress[0].ip}")"
 
-gcloud dns record-sets transaction start --zone=searceinc-net
+gcloud dns record-sets transaction start --zone=ZONE_NAME
 
-gcloud dns record-sets transaction add  $IP   --name=nginx-ingress.searceinc.net  --ttl=300    --type=A    --zone=searceinc-net
+gcloud dns record-sets transaction add  $IP   --name=nginx-ingress.XXXX.com  --ttl=300    --type=A    --zone=ZONE_NAME
 
-gcloud dns record-sets transaction execute --zone=searceinc-net
+gcloud dns record-sets transaction execute --zone=ZONE_NAME
 
 s="prov"
 

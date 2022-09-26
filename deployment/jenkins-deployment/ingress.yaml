@@ -7,11 +7,11 @@ metadata:
     app: jenkins
   annotations:
     networking.gke.io/managed-certificates: jenkins-test-cert
-    kubernetes.io/ingress.global-static-ip-name: accelerator-jenkins
+    kubernetes.io/ingress.global-static-ip-name: jenkins-ip
     kubernetes.io/ingress.class: "gce"
 spec:
   rules:
-  - host: jenkins-accelerator.searceinc.net    #give the domain name according to your requiremnt
+  - host: jenkins.XXXX.com    #give the domain name according to your requiremnt
     http:
       paths:
         - path: /*

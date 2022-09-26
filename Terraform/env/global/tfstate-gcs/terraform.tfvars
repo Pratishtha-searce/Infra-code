@@ -17,5 +17,6 @@
 /******************************************
 	GCS bucket variable values
  *****************************************/
+
 project_id = "project-id"
 location   = "region"

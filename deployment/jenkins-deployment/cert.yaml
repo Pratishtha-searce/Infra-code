@@ -7,4 +7,4 @@ metadata:
     app: jenkins
 spec:
   domains:
-    - jenkins-accelerator.searceinc.net   #give the domain name according to your requiremnt
+    - jenkins.XXXX.com   #give the domain name according to your requiremnt

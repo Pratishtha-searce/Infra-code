@@ -46,32 +46,48 @@ terraform {
   VCP & Subnets Details
  *****************************************/
 
-module "vpc" {
+module "gke_vpc" {
   source       = "terraform-google-modules/network/google"
   version      = "~> 4.0"
   project_id   = var.project_id
-  network_name = "main-vpc"
+  network_name = "gke-cluster-vpc"
   subnets = [
     {
-      subnet_name           = "gke-pvt-asia-sth1-main-vpc-subnet"
-      subnet_ip             = "10.200.0.0/16"
+      subnet_name           = "gke-cluster-subnet"
+      subnet_ip             = "10.10.5.0/24"
       subnet_region         = var.region
       subnet_private_access = "true"
     }
   ]
   secondary_ranges = {
-    "gke-pvt-asia-sth1-main-vpc-subnet" = [
+    "gke-cluster-subnet" = [
       {
-        range_name    = "pod-range"
-        ip_cidr_range = "10.201.0.0/16"
+        range_name    = "pod"
+        ip_cidr_range = "10.10.6.0/24"
       },
 
       {
-        range_name    = "svc-range"
-        ip_cidr_range = "10.202.0.0/16"
+        range_name    = "svc"
+        ip_cidr_range = "10.10.7.0/24"
       },
     ]
   }
+}
+
+
+module "private_pool_vpc" {
+  source       = "terraform-google-modules/network/google"
+  version      = "~> 4.0"
+  project_id   = var.project_id
+  network_name = "private-pool-vpc"
+  subnets = [
+    {
+      subnet_name           = "private-pool-subnet"
+      subnet_ip             = "10.6.5.0/24"
+      subnet_region         = var.region
+      subnet_private_access = "true"
+    }
+  ]
 }
 
 
@@ -92,18 +108,18 @@ resource "google_compute_address" "address" {
 
 resource "google_compute_router" "router" {
   project = var.project_id
-  name    = "main-vpc-nat-router"
-  network = module.vpc.network_name
+  name    = "gke-cluster-vpc-nat-router"
+  network = module.gke_vpc.network_name
   region  = var.region
 }
 
-module "cloud-nat" {
+module "cloud_nat" {
   source                             = "terraform-google-modules/cloud-nat/google"
   version                            = "~> 2.1.0"
   project_id                         = var.project_id
   region                             = var.region
   router                             = google_compute_router.router.name
-  name                               = "main-vpc-nat"
+  name                               = "gke-cluster-vpc-nat"
   nat_ips                            = google_compute_address.address.*.self_link
   source_subnetwork_ip_ranges_to_nat = "ALL_SUBNETWORKS_ALL_IP_RANGES"
   depends_on                         = [google_compute_router.router]
@@ -116,7 +132,7 @@ module "cloud-nat" {
 module "firewall_rules" {
   source       = "terraform-google-modules/network/google//modules/firewall-rules"
   project_id   = var.project_id
-  network_name = module.vpc.network_name
+  network_name = module.gke_vpc.network_name
   rules = [{
     name                    = "iap-gooleip-allow-iap-tcp-22-3389-allow-rule"
     description             = "This firewall rule is to allow GCP Cloud IAP IP ranges."
@@ -182,17 +198,27 @@ module "firewall_rules" {
 #  *****************************************/
 
 output "project_id" {
-  value       = module.vpc.project_id
+  value       = module.gke_vpc.project_id
   description = "VPC project id"
 }
 
-output "network_name" {
-  value       = module.vpc.network_name
+output "gke_network_name" {
+  value       = module.gke_vpc.network_name
   description = "The name of the VPC being created"
 }
 
-output "subnets_names" {
-  value       = module.vpc.subnets
+output "pool_network_name" {
+  value       = module.private_pool_vpc.network_name
+  description = "The name of the VPC being created"
+}
+
+output "gke_subnets_name" {
+  value       = module.gke_vpc.subnets
+  description = "The names of the subnets being created"
+}
+
+output "pool_subnets_name" {
+  value = module.private_pool_vpc.subnets
   description = "The names of the subnets being created"
 }
 
@@ -202,7 +228,7 @@ output "subnets_names" {
 
 output "cloud_nat_name" {
   description = "Name of the Cloud NAT"
-  value       = module.cloud-nat.name
+  value       = module.cloud_nat.name
 }
 
 /******************************************

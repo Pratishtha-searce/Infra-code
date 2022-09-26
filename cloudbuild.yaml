@@ -15,7 +15,7 @@
 
 
 steps:
-  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'
+  - name: 'gcr.io/souviks-world/gcloud-terraform:latest'  #create this docker image using a Dockerfile
     entrypoint: 'bash'
     args:
       - '-eEuo'

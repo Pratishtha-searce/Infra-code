@@ -4,7 +4,7 @@ envsubst < creds.xml > custom-creds.xml
 
 envsubst < review-job.xml > custom-review-job.xml
 
-gcloud container clusters get-credentials accelerator-cluster --zone us-east1-b --project searce-playground-v1
+gcloud container clusters get-credentials gke-cluster --zone us-east1-b --project PROJECT_ID
 
 export POD_NAME="$(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n jenkins | grep jenkins)"
 
@@ -28,6 +28,6 @@ java -jar jenkins-cli.jar -s ${_JENKINSURL_} -auth admin:$PASSWORD -webSocket gr
 
 kubectl exec $POD_NAME -n jenkins -- /bin/bash -c "cat /var/jenkins_home/token.txt" > token.txt
 
-gcloud secrets create accelerator-token-secret --data-file=token.txt
+gcloud secrets create token-secret --data-file=token.txt
 
 rm -rf token.txt

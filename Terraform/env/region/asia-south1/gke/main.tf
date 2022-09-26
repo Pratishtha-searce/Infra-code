@@ -61,12 +61,12 @@ data "google_project" "project" {
 module "gke_private_cluster" {
   source                                = "terraform-google-modules/kubernetes-engine/google//modules/private-cluster"
   project_id                            = var.project_id
-  name                                  = "test-gke-cluster"
+  name                                  = "gke-cluster"
   region                                = var.region
-  network                               = "main-vpc"
-  subnetwork                            = "gke-pvt-asia-sth1-main-vpc-subnet"
-  ip_range_pods                         = "pod-range"
-  ip_range_services                     = "svc-range"
+  network                               = "gke-cluster-vpc"
+  subnetwork                            = "gke-cluster-subnet"
+  ip_range_pods                         = "pod"
+  ip_range_services                     = "svc"
   regional                              = true
   create_service_account                = false
   http_load_balancing                   = true
@@ -81,18 +81,18 @@ module "gke_private_cluster" {
   service_account                       = "service account name"
   master_authorized_networks            = [
     {
-      cidr_block   = "10.200.0.0/16"
+      cidr_block   = "10.10.0.0/16"
       display_name = "vpc-cider-range"
     }
   ]
 
   cluster_resource_labels            = {
-    "owner" : "test"
+    "owner" : "jenkins"
   }
   kubernetes_version                 = "1.22.11-gke.400"
   node_pools = [
     {
-      name                           = "test-gke-cluster-nodepool"
+      name                           = "gke-cluster-nodepool"
       machine_type                   = "n2-standard-8"
       image_type                     = "UBUNTU_CONTAINERD"
       node_locations                 = "asia-south1-a"
