@@ -22,7 +22,7 @@ steps:
       - 'pipefail'
       - '-c'
       - |
-        make specific-regional-Resource dir-name gke
+        make specific-regional-Resource dir-name=gke
     id: Create the terraform resources
 
 
