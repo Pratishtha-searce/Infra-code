@@ -78,7 +78,7 @@ module "gke_private_cluster" {
   master_ipv4_cidr_block                = "10.3.0.0/28"
   remove_default_node_pool              = true
   initial_node_count                    = 0
-  service_account                       = "service account name"
+  service_account                       = "356765712025-compute@developer.gserviceaccount.com"
   master_authorized_networks            = [
     {
       cidr_block   = "10.10.0.0/16"
